@@ -36,6 +36,7 @@ socket.on('newLocationMessage', function(message){
     var template = jQuery('#location-template').html();
     var li = Mustache.render(template, {
         text: message.text,
+        from: message.from,
         createdAt: formattedTime,
         url: message.url
     });
