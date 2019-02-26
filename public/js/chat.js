@@ -6,16 +6,27 @@ function scrollToBottom(){
     var clientHeight = messages.prop('clientHeight');
     var scrollTop = messages.prop('scrollTop');
     var scrollHeight = messages.prop('scrollHeight');
-    var newMessageHeight = newMessage.innerHeigth();
-    var lastMessageHeigth = newMessage.prev().innerHeigth();
+    var newMessageHeight = newMessage.innerHeight();
+    var lastMessageHeight = newMessage.prev().innerHeight();
 
-    if (clientHeight + scrollTop + newMessageHeight + lastMessageHeigth >= scrollHeight){
+    if (clientHeight + scrollTop + newMessageHeight + lastMessageHeight >= scrollHeight){
         messages.scrollTop(scrollHeight);
     }
 }
 
 socket.on('connect', function(){
     console.log('Connected to server');
+
+    var params = jQuery.deparam(window.location.search);
+
+    socket.emit('join', params, function (err){
+        if(err){
+            alert(err);
+            window.location.href = '/';
+        }else{
+            console.log('No error');
+        }
+    });
 
     // socket.emit('createMessage', {
     //     from: 'klosik007',
@@ -66,12 +77,12 @@ socket.on('newLocationMessage', function(message){
     scrollToBottom();
 });
 
-socket.emit('createMessage', {
-    from: 'Frank',
-    text: 'I will conquer you!'
-}, function (message){
-    console.log('got it', message);
-});
+// socket.emit('createMessage', {
+//     from: 'Frank',
+//     text: 'I will conquer you!'
+// }, function (message){
+//     console.log('got it', message);
+// });
 
 jQuery('#message-form').on('submit', function (e){
     e.preventDefault();
