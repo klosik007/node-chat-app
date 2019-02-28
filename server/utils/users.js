@@ -10,19 +10,24 @@ class Users{
     }
 
     removeUser(id){
-        var user  = this.users.filter((user)=> user.id === id);
-        var userIndex = this.users.indexOf(user);
-        this.users.slice(0, userIndex).concat(this.users.slice(userIndex + 1));
+//         var user  = this.users.filter((user)=> user.id === id);
+// console.log(user);
+//         //if (user){
+//             var userIndex = this.users.indexOf(user[0]);
+//             console.log(userIndex);
+//             this.users.slice(0, userIndex).concat(this.users.slice(userIndex + 1));
+//         //}
 
-        var removedUser = user.map((user) =>user.name);
-        return removedUser;
+        var user = this.getUser(id);
+        if (user){
+            this.users = this.users.filter((user)=> user.id !== id);
+        }
+       
+        return user;
     }
 
     getUser(id){
-        var user  = this.users.filter((user)=> user.id === id);
-        var userName = user.map((user)=>user.name);
-        
-        return userName;
+        return this.users.filter((user)=> user.id === id)[0];
     }
 
     getUserList(room){

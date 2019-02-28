@@ -38,38 +38,31 @@ describe('Users', ()=>{
     });
 
     it('should remove a user', ()=>{
-        var users = new Users();
-        var userToRemove = {
-            id: '1',
-            name: 'Mike',
-            room: 'Node Course'
-        };
+        var userToRemove = '1';
+        var removedUser = users.removeUser(userToRemove);
 
-        var removedUser = users.removeUser(userToRemove.id);
-
-        expect(removedUser).toEqual([userToRemove.name]);
+        expect(removedUser.id).toBe(userToRemove);
+        expect(users.users.length).toBe(2);
     });
 
     it('should not remove a user' ,()=>{
-        // var users = new Users();
-        // var userToRemove = {
-        //     id: '4',
-        //     name: 'Nathan',
-        //     room: 'Node Course'
-        // };
+        var userToRemove = '12';
+        var removedUser = users.removeUser(userToRemove);
 
-        // var removedUser = users.removeUser(userToRemove.id);
-
-        // expect(removedUser).toEqual([userToRemove]);
+        expect(removedUser).toBe(undefined);
+        expect(users.users.length).toBe(3);
     });
 
     it('should get user', ()=>{
-        // var users = new Users();
-
+        var userToGet = '1';
+        var user = users.getUser(userToGet);
+        expect(user.id).toEqual(userToGet);
     });
 
     it('should not get a user', ()=>{
-
+        var userToGet = '12';
+        var user = users.getUser(userToGet);
+        expect(user).toBe(undefined);
     });
 
     it('should return names for node course', ()=>{
